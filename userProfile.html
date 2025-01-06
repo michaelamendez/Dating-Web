@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/profile.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Profile Display</title>
+    <style>
+        .profile-info {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .profile-actions {
+            margin-top: 20px;
+        }
+        .profile-info img {
+            width: 45%; 
+            height: auto; 
+            object-fit: cover; 
+            border-radius: 75%; 
+            display: fixed;
+        }
+
+        .bottom-button {
+            position: fixed; 
+            bottom: 20px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            z-index: 1000; 
+        }
+    </style>
+</head>
+<body>
+    <div class="back text-center my-4">
+        <a href="user.html">
+            <button class="btn btn-buttom btn-lg px-5 py-3 bottom-button">Back</button>
+        </a>
+    </div>
+
+    <div class="container profile-info"></div>
+   
+    <script src="js/profile.js"></script>
+</body>
+</html>

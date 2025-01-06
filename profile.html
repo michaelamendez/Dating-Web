@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/profile.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Profile Display</title>
+    <style>
+        .profile-info {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .profile-actions {
+            margin-top: 20px;
+        }
+
+        .profile-actions img {
+            width: 100px; 
+            height:100px; 
+            object-fit: cover; 
+            border-radius: 75%; 
+            display: inline-block;
+        }
+        
+        .button {
+            font-size: 20px;
+            font-weight: bold;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            margin-top: 20px;
+        }
+
+        .bottom-button {
+            position: fixed; 
+            bottom: 20px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            z-index: 1000; 
+        }
+    </style>
+</head>
+<body>
+    <div class="back text-left my-8">
+        <a href="matches.html">
+            <button class="btn btn-primary btn-lg px-5 py-3 bottom-button">Back</button>
+        </a>
+    </div>
+    
+    <div class="container profile-info"></div> <!-- Add this container for profile info -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get("p");
+            const profileContent = document.querySelector(".profile-info");
+
+            if (productId) {
+                const profileData = getProfileData(productId);
+
+                if (profileData) {
+                    displayProfile(profileData, profileContent);
+                } else {
+                    profileContent.innerHTML = "<p>Profile not found</p>";
+                }
+            } else {
+                profileContent.innerHTML = "<p>No profile selected</p>";
+            }
+
+            function displayProfile(profileData, container) {
+                container.innerHTML = `
+                    <img src="${profileData.image}" alt="Profile Image" style="width:45%; height:auto;">
+                    <h3>${profileData.fullName}</h3>
+                    <div class="basic-info">
+                        <h4>Basic Information</h4>
+                        <p>Name: ${profileData.fullName}</p>
+                        <p>Age: ${profileData.age}</p>
+                        <p>Gender: ${profileData.gender}</p>
+                        <p>Location: ${profileData.location}</p>
+                        <p>Education: ${profileData.education}</p>
+                    </div>
+                    <div class="about-info">
+                        <h4>About Me</h4>
+                        <p>Physical Appearance: ${profileData.physicalAppearance}</p>
+                        <p>Personality: ${profileData.personality}</p>
+                        <p>Hobbies and Interests: ${profileData.hobbies}</p>
+                        <p>Goals: ${profileData.goals}</p>
+                    </div>
+                    <div class="look-info">
+                        <h4>Looking for:</h4>
+                        <p>Age Range: ${profileData.ageRange}</p>
+                        <p>Gender: ${profileData.lookingForGender}</p>
+                        <p>Location: ${profileData.lookingForLocation}</p>
+                        <p>Relationship Status: ${profileData.relationshipStatus}</p>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="edit-button">Edit</button>
+                        <button class="delete-button">Delete</button>
+                    </div>
+                `;
+
+                container.querySelector(".edit-button").addEventListener("click", function () {
+                    editProfile(profileData);
+                });
+
+                container.querySelector(".delete-button").addEventListener("click", function () {
+                    deleteProfile(profileData, container);
+                });
+            }
+
+            function editProfile(profileData) {
+                const newName = prompt("Edit Name:", profileData.fullName);
+                const newAge = prompt("Edit Age:", profileData.age);
+                const newGender = prompt("Edit Gender:", profileData.gender);
+                const newLocation = prompt("Edit Location:", profileData.location);
+                const newEducation = prompt("Edit Education:", profileData.education);
+                const newPhysicalAppearance = prompt("Edit Physical Appearance:", profileData.physicalAppearance);
+                const newPersonality = prompt("Edit Personality:", profileData.personality);
+                const newHobbies = prompt("Edit Hobbies:", profileData.hobbies);
+                const newGoals = prompt("Edit Goals:", profileData.goals);
+                const newAgeRange = prompt("Edit Age Range:", profileData.ageRange);
+                const newLookingForGender = prompt("Edit Looking For Gender:", profileData.lookingForGender);
+                const newLookingForLocation = prompt("Edit Looking For Location:", profileData.lookingForLocation);
+                const newRelationshipStatus = prompt("Edit Relationship Status:", profileData.relationshipStatus);
+
+                if (newName) profileData.fullName = newName;
+                if (newAge) profileData.age = newAge;
+                if (newGender) profileData.gender = newGender;
+                if (newLocation) profileData.location = newLocation;
+                if (newEducation) profileData.education = newEducation;
+                if (newPhysicalAppearance) profileData.physicalAppearance = newPhysicalAppearance;
+                if (newPersonality) profileData.personality = newPersonality;
+                if (newHobbies) profileData.hobbies = newHobbies;
+                if (newGoals) profileData.goals = newGoals;
+                if (newAgeRange) profileData.ageRange = newAgeRange;
+                if (newLookingForGender) profileData.lookingForGender = newLookingForGender;
+                if (newLookingForLocation) profileData.lookingForLocation = newLookingForLocation;
+                if (newRelationshipStatus) profileData.relationshipStatus = newRelationshipStatus;
+
+                alert("Profile updated successfully!");
+                displayProfile(profileData, profileContent);
+            }
+
+            function deleteProfile(profileData, container) {
+                const confirmDelete = confirm(`Are you sure you want to delete the profile of ${profileData.fullName}?`);
+                if (confirmDelete) {
+                    container.innerHTML = "<p>Profile has been deleted.</p>";
+                }
+            }
+        });
+
+        function getProfileData(productId) {
+            const profiles = {
+                "p-1": {
+                    fullName: "Kathryn Chandria Manuel Bernardo",
+                    image: "img/kat.jpg",
+                    age: 28,
+                    gender: "Female",
+                    location: "Antipolo City",
+                    education: "Marketing (Enderun Colleges)",
+                    physicalAppearance: "Long flowing brown hair, bright and brown eyes.",
+                    personality: "Kind, compassionate, artistic, and strong-willed.",
+                    hobbies: "Skateboarding.",
+                    goals: "If others can, why can't I?",
+                    ageRange: "20-30",
+                    lookingForGender: "Male",
+                    lookingForLocation: "Any",
+                    relationshipStatus: "Single",
+                },          'p-2': {
+      fullName: 'Daniel John Elago Ford',
+      image: 'img/dan.jpg',
+      age: 29,
+      gender: 'Male',
+      location: 'Quezon City.',
+      education: 'UST Angelicum College.',
+      physicalAppearance: 'Athletic build, and 5`11 feet tall.',
+      personality: 'Friendly and outgoing.',
+      hobbies: 'skate, travel, listen to bands, and play basketball, golf, and badminton.',
+      goals: 'Advance in career, travel the world.',
+      ageRange: '20-30',
+      lookingForGender: 'Female',
+      lookingForLocation: 'Any',
+      relationshipStatus: 'Single'
+    },
+    'p-3': {
+      fullName: 'Richard Reyes Faulkerson Jr.',
+         image: 'img/al.jpg',
+         age: 32,
+         gender: 'Male',
+         location: ' Biñan Laguna .',
+         education: 'Colegio de Santa Rosa.',
+         physicalAppearance: 'Lean and stronger physique, dark brown hair and brown eyes.',
+         personality: 'Charismatic, Positive, Loyal, Responsible, and Hardworking.',
+         hobbies: 'Playing mobile games, Action figure collecting.',
+         goals: 'Finish My Studies',
+         ageRange: '20-30',
+         lookingForGender: 'Female',
+         lookingForLocation: 'Any',
+         relationshipStatus: 'Single'
+    },
+    
+    'p-4': {
+      fullName: 'Hope Elizabeth Soberano',
+         image: 'img/liz.jpg',
+         age: 26,
+         gender: 'Female',
+         location: 'Los Angeles .',
+         education: 'Southville International School Affiliated with Foreign universities(SISFU).',
+         physicalAppearance: 'Angelic eyes, symmetrical features, a refined nose, and lips.',
+         personality: 'hunger for growth and excitement.',
+         hobbies: 'Grocery shopping, cooking, and doing home repairs.',
+         goals: 'Be a successful.',
+         ageRange: '20-30',
+         lookingForGender: 'Male',
+         lookingForLocation: 'Any',
+         relationshipStatus: 'Single'
+    },
+    
+    'p-5': {
+      fullName: 'Enrique Mari Bacay Gil',
+         image: 'img/gil.jpg',
+         age: 32,
+         gender: 'Male',
+         location: 'Cebu City.',
+         education: 'Degree in Business Management (San Beda College Alabang).',
+         physicalAppearance: 'Messy dark blonde hair, brown eyes, slight beard and muscular build.',
+         personality: 'outgoing and energetic.',
+         hobbies: 'Reading, traveling',
+         goals: 'Be a successful businessman and make a difference in the world.',
+         ageRange: '20-30',
+         lookingForGender: 'Female',
+         lookingForLocation: 'Any',
+         relationshipStatus: 'Single'
+    },
+    
+    'p-6': {
+      fullName: 'Nadine Alexis Paguia Lustre',
+         image: 'img/nad.jpg',
+         age: 31,
+         gender: 'Female',
+         location: 'Quezon City.',
+         education: 'Communication Arts Major(Colegio de San Lorenzo).',
+         physicalAppearance: ' long and lean body type, athletic look.',
+         personality: 'gentle, sensitive souls who enjoy making things beautiful.',
+         hobbies: ' Doing artworks, playing computer games, watching movies.',
+         goals: 'To travel the world and experience different cultures.',
+         ageRange: '25-35',
+         lookingForGender: 'Male',
+         lookingForLocation: 'Any',
+         relationshipStatus: 'Single'
+    },
+    
+    'p-7': {
+      fullName: 'Robert James Reid ',
+         image: 'img/jem.jpg',
+         age: 31,
+         gender: 'Male',
+         location: 'Sydney, New South Wales, Australia.',
+         education: 'Makati Science High School.',
+         physicalAppearance: 'Tall, lean build, black hair and brown eyes.',
+         personality: 'Mysterious, reserved, but can be fiercely loyal.',
+         hobbies: ' I crochet, read, write, draw, play video games, play D&D, watch anime .',
+         goals: 'Become succesful.',
+         ageRange: '20-30',
+         lookingForGender: 'Female',
+         lookingForLocation: 'Any',
+         relationshipStatus: 'Single'
+    },
+    
+    'p-8': {
+      fullName: 'Rodel Pacheco Nacianceno',
+         image: 'img/mar.jpg',
+         age: 43,
+         gender: 'Male',
+         location: 'Santa Cruz, Manila.',
+         education: 'degree in hotel and restaurant management(National College of Business and Arts in Fairview).',
+         physicalAppearance: 'Short, lean build, dark brown hair and brown eyes.',
+         personality: 'hardworking, loyal and dedicated, to people, organisations, groups.',
+         hobbies: 'Traveling.',
+         goals: 'Become a successful .',
+         ageRange: '25-35',
+         lookingForGender: 'Female',
+         lookingForLocation: 'Manila',
+         relationshipStatus: 'Single'
+    },
+    
+    'p-9': {
+      fullName: 'Mara Hautea Schnittka',
+         image: 'img/jul.jpg',
+         age: 29,
+         gender: 'Female',
+         location: 'Pandacan, Manila, Philippines.',
+         education: ' Marketing Management(Southville International School and Colleges).',
+         physicalAppearance: 'curvy build, dark blonde hair and brown eyes.',
+         personality: 'caring and responsible individual who is deeply committed to her family and friends.',
+         hobbies: 'cooking, dancing, Travelling, Reading, Photography and Fitness.',
+         goals: 'Become a famous actress.',
+         ageRange: '30-40',
+         lookingForGender: 'Male',
+         lookingForLocation: 'Any.',
+         relationshipStatus: 'Single'
+    },
+
+    'p-10': {
+      fullName: 'Yasmin Isabel Mae Poncardas-Pressman',
+         image: 'img/yas.jpg',
+         age: 29,
+         gender: 'Female',
+         location: 'Rizal, Manila, Philippines.',
+         education: 'Bachelor of Engineering - BE Mechanical Engineering(University of California).',
+         physicalAppearance: 'dark blonde hair(curly) and dark brown eyes.',
+         personality: 'Adventurous, Energetic, Assertive.',
+         hobbies: 'cooking.',
+         goals: 'Makapagpatayo ng sports camp',
+         ageRange: '30-40',
+         lookingForGender: 'Male',
+         lookingForLocation: 'Any.',
+         relationshipStatus: 'Single'
+    }
+            };
+
+            return profiles[productId];
+        }
+    </script>
+</body>
+</html>

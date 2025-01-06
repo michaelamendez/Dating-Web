@@ -1,0 +1,109 @@
+body {
+  font-family: 'Nunito', Sans-Serif;
+  margin: 0;
+  padding: 0;
+  background-color: lightpink;
+}
+
+.navbar {
+  background-color: #333;
+  color: #333;
+  padding: 7px 7px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 7px 7px;
+}
+
+.nav-links li {
+  margin: 0 15px;
+  padding: 7px 7px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.5em;
+}
+
+.logo {
+  font-size: 1.5em;
+  color: white;
+  padding-top: 3px;
+}
+
+
+.main-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap-reverse;
+}
+
+.content-container {
+  flex: 1;
+
+  text-align: center;
+}
+
+.people-image {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border: 3px solid rgb(0, 0, 0);
+  border-radius: 50%;
+  margin-top: 20px;
+}
+
+.search-container {
+  margin-top: 20px;
+}
+
+.search-bar {
+  padding: 10px ;
+  width: 70%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.search-button {
+  padding: 10px;
+  background-color: #CC0066;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+h2, p {
+  font-size: 1.5rem;
+  margin: 10px 0;
+}
+
+.about-section {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  width: 100%;
+  margin-top: 10px;
+  bottom: 0;
+  position: fixed;
+}
+
+.footer p {
+  padding: 10px;
+}
